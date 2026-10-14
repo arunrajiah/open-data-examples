@@ -24,15 +24,20 @@ s3://wildnetwork-open-data/
 ├── manifest.json                      latest snapshot date, row counts, file list, checksums
 ├── schema/
 │   └── wdx-0.2.schema.json            WDX JSON Schema (also on Zenodo, DOI 10.5281/zenodo.22200864)
-├── events/                            individual detection events (GeoParquet)
+├── events/                            individual detection events (GeoParquet), CC0 and CC BY only
 │   └── year=2026/month=10/day=12/
 │       └── part-000.parquet
-└── aggregates/
-    ├── species_daily/                 one row per species, 5-degree cell, day and source
-    │   └── year=2026/part-000.parquet
-    └── species_weekly/                one row per species, 5-degree cell, ISO week and source
-        └── year=2026/part-000.parquet
+├── aggregates/                        CC0 and CC BY only
+│   ├── species_daily/                 one row per species, 5-degree cell, day and source
+│   │   └── year=2026/part-000.parquet
+│   └── species_weekly/                one row per species, 5-degree cell, ISO week and source
+│       └── year=2026/part-000.parquet
+└── noncommercial/                     CC BY-NC records only, same layout and columns
+    ├── events/year=YYYY/month=MM/day=DD/
+    └── aggregates/species_daily/ and species_weekly/
 ```
+
+**Open and non-commercial data are kept apart.** Everything under `events/` and `aggregates/` is CC0 or CC BY and can be used for any purpose, including commercial use. Records whose observers chose CC BY-NC (mostly from iNaturalist) are published only under `noncommercial/`, with the same layout and columns, so you can include or exclude them with a single path.
 
 Partitions use Hive-style `key=value` folder names, so DuckDB, Polars, PyArrow, Spark and Amazon Athena can prune by date automatically.
 
@@ -61,7 +66,7 @@ Partitions use Hive-style `key=value` folder names, so DuckDB, Polars, PyArrow, 
 | `coordinate_uncertainty_m` | double | Radius covering the generalisation and GPS error |
 | `source_system` | string | `wdx` (contributed devices), `inaturalist`, `gbif` |
 | `source_record_id` | string | Identifier in the source system |
-| `license` | string | SPDX licence of the record: `CC-BY-4.0`, `CC0-1.0` or `CC-BY-NC-4.0` |
+| `license` | string | SPDX licence of the record: `CC-BY-4.0` or `CC0-1.0` (`CC-BY-NC-4.0` only under `noncommercial/`) |
 
 ### `aggregates/species_daily/` and `aggregates/species_weekly/`
 
@@ -79,12 +84,12 @@ Aggregates are the right input for movement and timing analyses: WildNetwork's p
 
 ## Licensing and sources
 
-Only records whose licence allows redistribution are published; each row carries its own `license`.
+Only records whose licence allows redistribution are published, and each row carries its own `license`. CC0 and CC BY records are under `events/` and `aggregates/`; CC BY-NC records are only under `noncommercial/`.
 
 | Source | What is included | Licence |
 |---|---|---|
 | WDX contributions (WildNetwork Base, BirdNET-Pi, BirdNET-Go and other stations sending through wdx-agent) | events and aggregates | CC BY 4.0 by default, as chosen by each contributor |
-| iNaturalist (via its API) and GBIF | events and aggregates | CC0, CC BY or CC BY-NC as set by each observer; credit observers as their licences require |
+| iNaturalist (via its API) and GBIF | events and aggregates | CC0 or CC BY in the main prefixes; CC BY-NC records only under `noncommercial/`. Credit observers as their licences require |
 | BirdWeather community stations | aggregates only, and only with BirdWeather's written permission for redistribution | to be confirmed before launch |
 
 Please cite the dataset (see below) and credit the underlying sources when you publish.

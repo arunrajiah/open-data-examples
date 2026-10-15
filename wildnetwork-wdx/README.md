@@ -8,7 +8,7 @@ Open snapshots of [WildNetwork](https://wildnetwork.arunrajiah.com), a free, ope
 - **Format:** Apache Parquet (GeoParquet for point data), partitioned by date; the WDX JSON Schema alongside
 - **Update frequency:** weekly snapshot (every Monday, UTC), plus a full re-export when the WDX schema version changes
 - **Scale today:** about 18,800 sensors, 311 million detections and 44,000 species represented on WildNetwork (live figures at `https://wildnetwork.arunrajiah.com/api/v1/status`)
-- **Maintainer:** Arun Rajiah, Chennai, India. Contact: arunrajiah@gmail.com or [GitHub issues](https://github.com/arunrajiah/wildnetwork/issues)
+- **Maintainer:** Arun Rajiah, Chennai, India. Contact: arunrajiah@gmail.com or [GitHub issues](https://github.com/wlnw-org/wildnetwork/issues)
 
 ## Why this dataset exists
 
@@ -133,5 +133,5 @@ The same data is served by the WildNetwork public API (no key): `https://wildnet
 ## Related
 
 - WDX format and JSON Schema: <https://github.com/arunrajiah/wildlife-detection-exchange>
-- WildNetwork platform code (AGPL-3.0): <https://github.com/arunrajiah/wildnetwork>
+- WildNetwork platform code (AGPL-3.0): <https://github.com/wlnw-org/wildnetwork>
 - wdx-agent, for sending your own station's detections (Apache-2.0): <https://github.com/arunrajiah/wdx-agent>
